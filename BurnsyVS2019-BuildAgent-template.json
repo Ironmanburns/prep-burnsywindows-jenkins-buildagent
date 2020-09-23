@@ -4,19 +4,19 @@
     "parameters": {
         "location": {
             "type": "string",
-            "value": "uksouth"
+            "defaultValue": "uksouth"
         },
         "networkInterfaceName": {
             "type": "string",
-            "value" : "burnsyvs2019v2190"
+            "defaultValue" : "burnsyvs2019v2190"
         },
         "networkSecurityGroupName": {
             "type": "string",
-            "value": "burnsyvs2019v2-nsg"
+            "defaultValue": "burnsyvs2019v2-nsg"
         },
         "networkSecurityGroupRules": {
             "type": "array",
-            "value": [
+            "defaultValue": [
                 {
                     "name": "RDP",
                     "properties": {
@@ -34,21 +34,21 @@
         },
         "subnetName": {
             "type": "string",
-            "value": "default"
+            "defaultValue": "default"
         },
         "virtualNetworkName": {
             "type": "string",
-            "value": "BurnsyTest-vnet"
+            "defaultValue": "BurnsyTest-vnet"
         },
         "addressPrefixes": {
             "type": "array",
-            "value": [
+            "defaultValue": [
                 "10.1.1.0/24"
             ]
         },
         "subnets": {
             "type": "array",
-            "value": [
+            "defaultValue": [
                 {
                     "name": "default",
                     "properties": {
@@ -59,66 +59,66 @@
         },
         "publicIpAddressName": {
             "type": "string",
-            "value": "burnsyvs2019v2-ip"
+            "defaultValue": "burnsyvs2019v2-ip"
         },
         "publicIpAddressType": {
             "type": "string",
-            "value": "Dynamic"
+            "defaultValue": "Dynamic"
         },
         "publicIpAddressSku": {
             "type": "string",
-            "value": "Basic"
+            "defaultValue": "Basic"
         },
         "virtualMachineName": {
             "type": "string",
-            "value": "burnsyvs2019v2"
+            "defaultValue": "burnsyvs2019v2"
         },
         "virtualMachineComputerName": {
             "type": "string",
-            "value": "burnsyvs2019v2"
+            "defaultValue": "burnsyvs2019v2"
         },
         "virtualMachineRG": {
             "type": "string",
-            "value": "BurnsyTest"
+            "defaultValue": "BurnsyTest"
         },
         "osDiskType": {
             "type": "string",
-            "value": "StandardSSD_LRS"
+            "defaultValue": "StandardSSD_LRS"
         },
         "virtualMachineSize": {
             "type": "string",
-            "value": "Standard_D4_v3"
+            "defaultValue": "Standard_D4_v3"
         },
         "adminUsername": {
             "type": "string",
-            "value": "Packager"
+            "defaultValue": "Packager"
         },
         "adminPassword": {
-            "type": "secureString"
+            "defaultValue": "secureString"
         },
         "patchMode": {
             "type": "string",
-            "value": "AutomaticByOS"
+            "defaultValue": "AutomaticByOS"
         },
         "autoShutdownStatus": {
             "type": "string",
-            "value": "Enabled"
+            "defaultValue": "Enabled"
         },
         "autoShutdownTime": {
             "type": "string",
-            "value": "19:00"
+            "defaultValue": "19:00"
         },
         "autoShutdownTimeZone": {
             "type": "string",
-            "value": "UTC"
+            "defaultValue": "UTC"
         },
         "autoShutdownNotificationStatus": {
             "type": "string",
-            "value": "Enabled"
+            "defaultValue": "Enabled"
         },
         "autoShutdownNotificationLocale": {
             "type": "string",
-            "value": "en"
+            "defaultValue": "en"
         },
         "autoShutdownNotificationEmail": {
             "type": "string"
