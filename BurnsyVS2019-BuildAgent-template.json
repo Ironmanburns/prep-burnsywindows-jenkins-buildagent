@@ -1,90 +1,113 @@
 {
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
+       "parameters": {
         "location": {
-            "type": "String"
+            "value": "uksouth"
         },
         "networkInterfaceName": {
-            "type": "String"
+            "value": "burnsyvs2019553"
         },
         "networkSecurityGroupName": {
-            "type": "String"
+            "value": "burnsyvs2019-nsg"
         },
         "networkSecurityGroupRules": {
-            "type": "Array"
+            "value": [
+                {
+                    "name": "RDP",
+                    "properties": {
+                        "priority": 300,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "3389"
+                    }
+                }
+            ]
         },
         "subnetName": {
-            "type": "String"
+            "value": "default"
         },
         "virtualNetworkName": {
-            "type": "String"
+            "value": "rg-burnsy-devtestlab-vnet"
         },
         "addressPrefixes": {
-            "type": "Array"
+            "value": [
+                "10.1.0.0/24"
+            ]
         },
         "subnets": {
-            "type": "Array"
+            "value": [
+                {
+                    "name": "default",
+                    "properties": {
+                        "addressPrefix": "10.1.0.0/24"
+                    }
+                }
+            ]
         },
         "publicIpAddressName": {
-            "type": "String"
+            "value": "burnsyvs2019-ip"
         },
         "publicIpAddressType": {
-            "type": "String"
+            "value": "Dynamic"
         },
         "publicIpAddressSku": {
-            "type": "String"
+            "value": "Basic"
         },
         "virtualMachineName": {
-            "type": "String"
+            "value": "burnsyvs2019"
         },
         "virtualMachineComputerName": {
-            "type": "String"
+            "value": "burnsyvs2019"
         },
         "virtualMachineRG": {
-            "type": "String"
+            "value": "rg-burnsy-devtestlab"
         },
         "osDiskType": {
-            "type": "String"
+            "value": "StandardSSD_LRS"
         },
         "virtualMachineSize": {
-            "type": "String"
+            "value": "Standard_D4_v3"
         },
         "adminUsername": {
-            "type": "String"
+            "value": "packager"
         },
         "adminPassword": {
-            "type": "SecureString"
+            "value": null
         },
         "patchMode": {
-            "type": "String"
+            "value": "AutomaticByOS"
         },
         "diagnosticsStorageAccountName": {
-            "type": "String"
+            "value": "rgburnsydevtestlabdiag"
         },
         "diagnosticsStorageAccountId": {
-            "type": "String"
+            "value": "Microsoft.Storage/storageAccounts/rgburnsydevtestlabdiag"
         },
         "diagnosticsStorageAccountType": {
-            "type": "String"
+            "value": "Standard_LRS"
         },
         "diagnosticsStorageAccountKind": {
-            "type": "String"
+            "value": "Storage"
         },
         "autoShutdownStatus": {
-            "type": "String"
+            "value": "Enabled"
         },
         "autoShutdownTime": {
-            "type": "String"
+            "value": "19:00"
         },
         "autoShutdownTimeZone": {
-            "type": "String"
+            "value": "UTC"
         },
         "autoShutdownNotificationStatus": {
-            "type": "String"
+            "value": "Disabled"
         },
         "autoShutdownNotificationLocale": {
-            "type": "String"
+            "value": "en"
         }
     },
     "variables": {
