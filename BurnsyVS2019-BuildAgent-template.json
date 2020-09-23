@@ -42,7 +42,354 @@
         "subnets": {
             "value": [
                 {
-                    "name": "default",
+                    "name": "default",{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2020-05-01",
+            "name": "burnsyvs2019-nsg",
+            "location": "uksouth",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "RDP",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3389",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 300,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2020-05-01",
+            "name": "burnsyvs2019-ip",
+            "location": "uksouth",
+            "sku": {
+                "name": "Basic"
+            },
+            "properties": {
+                "ipAddress": "52.151.74.2",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "burnsyvs2019",
+                    "fqdn": "burnsyvs2019.uksouth.cloudapp.azure.com"
+                },
+                "ipTags": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2020-05-01",
+            "name": "rg-burnsy-devtestlab-vnet",
+            "location": "uksouth",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.1.0.0/24"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "default",
+                        "properties": {
+                            "addressPrefix": "10.1.0.0/24",
+                            "delegations": [],
+                            "privateEndpointNetworkPolicies": "Enabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": [],
+                "enableDdosProtection": false,
+                "enableVmProtection": false
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "name": "rgburnsydevtestlabdiag",
+            "location": "uksouth",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            }
+        },
+        {
+            "type": "microsoft.devtestlab/schedules",
+            "apiVersion": "2018-09-15",
+            "name": "shutdown-computevm-burnsyvs2019",
+            "location": "uksouth",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', 'burnsyvs2019')]"
+            ],
+            "properties": {
+                "status": "Enabled",
+                "taskType": "ComputeVmShutdownTask",
+                "dailyRecurrence": {
+                    "time": "1900"
+                },
+                "timeZoneId": "UTC",
+                "notificationSettings": {
+                    "status": "Disabled",
+                    "timeInMinutes": 30,
+                    "notificationLocale": "en"
+                },
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', 'burnsyvs2019')]"
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "apiVersion": "2020-05-01",
+            "name": "burnsyvs2019-nsg/RDP",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', 'burnsyvs2019-nsg')]"
+            ],
+            "properties": {
+                "protocol": "TCP",
+                "sourcePortRange": "*",
+                "destinationPortRange": "3389",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 300,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2020-05-01",
+            "name": "rg-burnsy-devtestlab-vnet/default",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', 'rg-burnsy-devtestlab-vnet')]"
+            ],
+            "properties": {
+                "addressPrefix": "10.1.0.0/24",
+                "delegations": [],
+                "privateEndpointNetworkPolicies": "Enabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "name": "rgburnsydevtestlabdiag/default",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiag')]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                },
+                "deleteRetentionPolicy": {
+                    "enabled": false
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices",
+            "apiVersion": "2019-06-01",
+            "name": "rgburnsydevtestlabdiag/default",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiag')]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/queueServices",
+            "apiVersion": "2019-06-01",
+            "name": "rgburnsydevtestlabdiag/default",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiag')]"
+            ],
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/tableServices",
+            "apiVersion": "2019-06-01",
+            "name": "rgburnsydevtestlabdiag/default",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiag')]"
+            ],
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "name": "burnsyvs2019",
+            "location": "uksouth",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', 'burnsyvs2019553')]",
+                "[resourceId('Microsoft.Storage/StorageAccounts', 'rgburnsydevtestlabdiag')]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_D4_v3"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "microsoftvisualstudio",
+                        "offer": "visualstudio2019latest",
+                        "sku": "vs-2019-ent-latest-ws2019",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "burnsyvs2019_OsDisk_1_df1caf41f3d947bbb9b96ca33c9c605d",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "storageAccountType": "StandardSSD_LRS",
+                            "id": "[resourceId('Microsoft.Compute/disks', 'burnsyvs2019_OsDisk_1_df1caf41f3d947bbb9b96ca33c9c605d')]"
+                        },
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "burnsyvs2019",
+                    "adminUsername": "packager",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true,
+                    "requireGuestProvisionSignal": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'burnsyvs2019553')]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "https://rgburnsydevtestlabdiag.blob.core.windows.net/"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "rgburnsydevtestlabdiag/default/bootdiagnostics-burnsyvs2-8fffe88d-bda3-4ca8-8f84-1f4d0e675410",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', 'rgburnsydevtestlabdiag', 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiag')]"
+            ],
+            "properties": {
+                "defaultEncryptionScope": "$account-encryption-key",
+                "denyEncryptionScopeOverride": false,
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2020-05-01",
+            "name": "burnsyvs2019553",
+            "location": "uksouth",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', 'burnsyvs2019-ip')]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'rg-burnsy-devtestlab-vnet', 'default')]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', 'burnsyvs2019-nsg')]"
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.1.0.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'burnsyvs2019-ip')]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'rg-burnsy-devtestlab-vnet', 'default')]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableAcceleratedNetworking": false,
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'burnsyvs2019-nsg')]"
+                }
+            }
+        }
+    ]
+}
                     "properties": {
                         "addressPrefix": "10.1.0.0/24"
                     }
