@@ -45,8 +45,8 @@
                 "publicIPAllocationMethod": "Dynamic",
                 "idleTimeoutInMinutes": 4,
                 "dnsSettings": {
-                    "domainNameLabel": "burnsyvs2019",
-                    "fqdn": "burnsyvs2019.uksouth.cloudapp.azure.com"
+                    "domainNameLabel": "burnsyvs2019v2",
+                    "fqdn": "burnsyvs2019v2.uksouth.cloudapp.azure.com"
                 },
                 "ipTags": []
             }
@@ -54,7 +54,7 @@
         {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2020-05-01",
-            "name": "rg-burnsy-devtestlab-vnet",
+            "name": "rg-burnsyv2-devtestlab-vnet",
             "location": "uksouth",
             "properties": {
                 "addressSpace": {
@@ -81,7 +81,7 @@
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2019-06-01",
-            "name": "rgburnsydevtestlabdiag",
+            "name": "rgburnsydevtestlabdiagv2",
             "location": "uksouth",
             "sku": {
                 "name": "Standard_LRS",
@@ -114,10 +114,10 @@
         {
             "type": "microsoft.devtestlab/schedules",
             "apiVersion": "2018-09-15",
-            "name": "shutdown-computevm-burnsyvs2019",
+            "name": "shutdown-computevm-burnsyvs2019v2",
             "location": "uksouth",
             "dependsOn": [
-                "[resourceId('Microsoft.Compute/virtualMachines', 'burnsyvs2019')]"
+                "[resourceId('Microsoft.Compute/virtualMachines', 'burnsyvs2019v2')]"
             ],
             "properties": {
                 "status": "Enabled",
@@ -131,15 +131,15 @@
                     "timeInMinutes": 30,
                     "notificationLocale": "en"
                 },
-                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', 'burnsyvs2019')]"
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', 'burnsyvs2019v2')]"
             }
         },
         {
             "type": "Microsoft.Network/networkSecurityGroups/securityRules",
             "apiVersion": "2020-05-01",
-            "name": "burnsyvs2019-nsg/RDP",
+            "name": "burnsyvs2019v2-nsg/RDP",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkSecurityGroups', 'burnsyvs2019-nsg')]"
+                "[resourceId('Microsoft.Network/networkSecurityGroups', 'burnsyvs2019v2-nsg')]"
             ],
             "properties": {
                 "protocol": "TCP",
@@ -159,9 +159,9 @@
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2020-05-01",
-            "name": "rg-burnsy-devtestlab-vnet/default",
+            "name": "rg-burnsyv2-devtestlab-vnet/default",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', 'rg-burnsy-devtestlab-vnet')]"
+                "[resourceId('Microsoft.Network/virtualNetworks', 'rg-burnsyv2-devtestlab-vnet')]"
             ],
             "properties": {
                 "addressPrefix": "10.1.0.0/24",
@@ -173,9 +173,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices",
             "apiVersion": "2019-06-01",
-            "name": "rgburnsydevtestlabdiag/default",
+            "name": "rgburnsydevtestlabdiagv2/default",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiag')]"
+                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiagv2')]"
             ],
             "sku": {
                 "name": "Standard_LRS",
@@ -193,9 +193,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/fileServices",
             "apiVersion": "2019-06-01",
-            "name": "rgburnsydevtestlabdiag/default",
+            "name": "rgburnsydevtestlabdiagv2/default",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiag')]"
+                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiagv2')]"
             ],
             "sku": {
                 "name": "Standard_LRS",
@@ -210,9 +210,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/queueServices",
             "apiVersion": "2019-06-01",
-            "name": "rgburnsydevtestlabdiag/default",
+            "name": "rgburnsydevtestlabdiagv2/default",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiag')]"
+                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiagv2')]"
             ],
             "properties": {
                 "cors": {
@@ -223,9 +223,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices",
             "apiVersion": "2019-06-01",
-            "name": "rgburnsydevtestlabdiag/default",
+            "name": "rgburnsydevtestlabdiagv2/default",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiag')]"
+                "[resourceId('Microsoft.Storage/storageAccounts', 'rgburnsydevtestlabdiagv2')]"
             ],
             "properties": {
                 "cors": {
@@ -236,11 +236,11 @@
         {
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2019-07-01",
-            "name": "burnsyvs2019",
+            "name": "burnsyvs2019v2",
             "location": "uksouth",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces', 'burnsyvs2019553')]",
-                "[resourceId('Microsoft.Storage/StorageAccounts', 'rgburnsydevtestlabdiag')]"
+                "[resourceId('Microsoft.Network/networkInterfaces', 'burnsyvs2019553v2')]",
+                "[resourceId('Microsoft.Storage/StorageAccounts', 'rgburnsydevtestlabdiagv2')]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -255,19 +255,19 @@
                     },
                     "osDisk": {
                         "osType": "Windows",
-                        "name": "burnsyvs2019_OsDisk_1_df1caf41f3d947bbb9b96ca33c9c605d",
+                        "name": "burnsyvs2019v2_OsDisk_1_df1caf41f3d947bbb9b96ca33c9c605d",
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
                             "storageAccountType": "StandardSSD_LRS",
-                            "id": "[resourceId('Microsoft.Compute/disks', 'burnsyvs2019_OsDisk_1_df1caf41f3d947bbb9b96ca33c9c605d')]"
+                            "id": "[resourceId('Microsoft.Compute/disks', 'burnsyvs2019v2_OsDisk_1_df1caf41f3d947bbb9b96ca33c9c605d')]"
                         },
                         "diskSizeGB": 127
                     },
                     "dataDisks": []
                 },
                 "osProfile": {
-                    "computerName": "burnsyvs2019",
+                    "computerName": "burnsyvs2019v2",
                     "adminUsername": "packager",
                     "windowsConfiguration": {
                         "provisionVMAgent": true,
@@ -280,14 +280,14 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'burnsyvs2019553')]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', 'burnsyvs2019553v2')]"
                         }
                     ]
                 },
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
                         "enabled": true,
-                        "storageUri": "https://rgburnsydevtestlabdiag.blob.core.windows.net/"
+                        "storageUri": "https://rgburnsyv2devtestlabdiag.blob.core.windows.net/"
                     }
                 }
             }
@@ -309,12 +309,12 @@
         {
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2020-05-01",
-            "name": "burnsyvs2019553",
+            "name": "burnsyvs2019553v2",
             "location": "uksouth",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses', 'burnsyvs2019-ip')]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'rg-burnsy-devtestlab-vnet', 'default')]",
-                "[resourceId('Microsoft.Network/networkSecurityGroups', 'burnsyvs2019-nsg')]"
+                "[resourceId('Microsoft.Network/publicIPAddresses', 'burnsyvs2019v2-ip')]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'rg-burnsyv2-devtestlab-vnet', 'default')]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', 'burnsyvs2019v2-nsg')]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -324,10 +324,10 @@
                             "privateIPAddress": "10.1.0.4",
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'burnsyvs2019-ip')]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'burnsyvs2019v2-ip')]"
                             },
                             "subnet": {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'rg-burnsy-devtestlab-vnet', 'default')]"
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'rg-burnsyv2-devtestlab-vnet', 'default')]"
                             },
                             "primary": true,
                             "privateIPAddressVersion": "IPv4"
@@ -340,7 +340,7 @@
                 "enableAcceleratedNetworking": false,
                 "enableIPForwarding": false,
                 "networkSecurityGroup": {
-                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'burnsyvs2019-nsg')]"
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'burnsyvs2019v2-nsg')]"
                 }
             }
         }
