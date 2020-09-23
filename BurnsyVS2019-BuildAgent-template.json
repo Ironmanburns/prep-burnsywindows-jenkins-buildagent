@@ -7,7 +7,7 @@
         {
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2020-05-01",
-            "name": "burnsyvs2019-nsg",
+            "name": "burnsyvs2019v2-nsg",
             "location": "uksouth",
             "properties": {
                 "securityRules": [
@@ -34,7 +34,7 @@
         {
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2020-05-01",
-            "name": "burnsyvs2019-ip",
+            "name": "burnsyvs2019v2-ip",
             "location": "uksouth",
             "sku": {
                 "name": "Basic"
