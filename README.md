@@ -1,3 +1,6 @@
 # prep-burnsywindows-jenkins-buildagent
 
-work in progress configure buildagent with chocolatey for msbuild of desktop apps
+Work in progress configure a jenkins windows server buildagent with chocolatey for msbuild of desktop apps 
+
+
+<img src="https://aka.ms/deploytoazurebutton"/>
