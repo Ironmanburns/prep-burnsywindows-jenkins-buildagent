@@ -9,8 +9,8 @@ Work in progress configure a jenkins windows server buildagent with chocolatey f
 
 
 `
-az deployment group create \
-  --name addstorage \
-  --resource-group myResourceGroup \
-  --template-file $templateFile
-`
+az deployment group create \  
+  --name addstorage \  
+  --resource-group myResourceGroup \  
+  --template-file $templateFile  
+` 
