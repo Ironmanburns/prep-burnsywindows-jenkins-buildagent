@@ -94,7 +94,8 @@
             "defaultValue": "Packager"
         },
         "adminPassword": {
-            "defaultValue": "secureString"
+            "type": "secureString"
+            "defaultValue" : null
         },
         "patchMode": {
             "type": "string",
